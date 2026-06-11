@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joe Yabuki — O Melhor Protagonista de Sempre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600&family=Libre+Franklin:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#f8f5ec;        /* papel claro, alto contraste */
+  --tinta:#100d09;        /* tinta preta de impressão */
+  --vermelho:#b3261c;     /* vermelho de luva / carimbo */
+  --cinza-fumo:#7a7468;   /* fumo do Doya-gai */
+  --branco-cinza:#f7f5ef; /* as cinzas brancas */
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation:none!important;transition:none!important;}
+}
+body{
+  background:var(--papel);
+  color:var(--tinta);
+  font-family:'Libre Franklin',sans-serif;
+  line-height:1.6;
+  /* trama de meio-tom bem sutil, como manga impressa */
+  background-image:radial-gradient(rgba(16,13,9,.03) 1px, transparent 1.5px);
+  background-size:9px 9px;
+}
+h1,h2,h3{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.02em;font-weight:400;}
+.eyebrow{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:.78rem;}
+
+/* ---------- CARTAZ / HERO ---------- */
+header{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:3rem 1.2rem;position:relative;overflow:hidden;
+  border-bottom:6px double var(--tinta);
+}
+.fight-night{border:2px solid var(--tinta);padding:.35rem 1.2rem;margin-bottom:1.6rem;}
+header h1{
+  font-size:clamp(3.2rem,12vw,9rem);
+  line-height:.92;
+}
+header h1 .vs-line{display:block;font-size:clamp(1.1rem,3.2vw,2rem);letter-spacing:.35em;margin:.8rem 0;color:var(--vermelho);}
+.carimbo{
+  position:absolute;
+  font-family:'Anton',sans-serif;text-transform:uppercase;
+  color:var(--vermelho);border:4px solid var(--vermelho);
+  padding:.3rem 1rem;font-size:clamp(1rem,2.6vw,1.6rem);
+  transform:rotate(-8deg);opacity:.85;
+  top:14%;right:6%;
+}
+.sub-cartaz{max-width:34rem;margin-top:1.8rem;font-size:1.05rem;}
+.cta-sino{
+  margin-top:2.4rem;
+  font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;
+  background:var(--tinta);color:var(--papel);
+  border:none;padding:1rem 2.4rem;font-size:1rem;cursor:pointer;
+  transition:transform .15s ease, background .15s ease;
+}
+.cta-sino:hover{background:var(--vermelho);transform:translateY(-2px);}
+.cta-sino:focus-visible{outline:3px solid var(--vermelho);outline-offset:3px;}
+
+/* ---------- MARCADOR DE ROUNDS (sticky) ---------- */
+nav.rounds{
+  position:sticky;top:0;z-index:50;
+  display:flex;justify-content:center;gap:0;
+  background:var(--tinta);
+}
+nav.rounds button{
+  font-family:'Oswald',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.12em;
+  background:none;border:none;color:var(--papel);opacity:.55;
+  padding:.85rem 1.1rem;font-size:.82rem;cursor:pointer;border-bottom:4px solid transparent;
+}
+nav.rounds button:hover{opacity:1;}
+nav.rounds button:focus-visible{outline:2px solid var(--vermelho);outline-offset:-4px;}
+nav.rounds button.ativo{opacity:1;border-bottom-color:var(--vermelho);}
+
+/* ---------- SECÇÕES ---------- */
+section{padding:5rem 1.2rem;max-width:62rem;margin:0 auto;}
+.round-header{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:2.4rem;border-bottom:3px solid var(--tinta);padding-bottom:.8rem;}
+.round-header .num{
+  font-family:'Anton',sans-serif;font-size:clamp(2.6rem,6vw,4rem);color:var(--vermelho);line-height:1;
+}
+.round-header h2{font-size:clamp(1.6rem,4.5vw,2.6rem);}
+section p.lead{font-size:1.12rem;max-width:44rem;margin-bottom:1.4rem;}
+section p{max-width:44rem;margin-bottom:1.1rem;}
+em{font-style:italic;}
+
+/* ---------- TALE OF THE TAPE ---------- */
+.tape{width:100%;border-collapse:collapse;margin:2rem 0;font-size:.95rem;}
+.tape th,.tape td{border:2px solid var(--tinta);padding:.7rem .6rem;text-align:center;}
+.tape th{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.08em;background:var(--tinta);color:var(--papel);font-weight:600;}
+.tape td:first-child{text-align:left;font-family:'Oswald',sans-serif;font-weight:500;}
+.tape .joe{background:rgba(179,38,28,.12);font-weight:600;}
+
+/* ---------- CARTÕES DE ARGUMENTO (flip) ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin-top:2rem;}
+.card{perspective:1000px;min-height:230px;}
+.card-inner{
+  position:relative;width:100%;height:100%;min-height:230px;
+  transition:transform .55s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d;cursor:pointer;
+}
+.card.virado .card-inner{transform:rotateY(180deg);}
+.card-face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border:3px solid var(--tinta);padding:1.3rem;display:flex;flex-direction:column;justify-content:center;
+  background:var(--branco-cinza);
+}
+.card-face.frente h3{font-size:1.35rem;margin-bottom:.5rem;}
+.card-face.frente .dica{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-family:'Oswald',sans-serif;color:var(--vermelho);margin-top:auto;}
+.card-face.verso{transform:rotateY(180deg);background:var(--tinta);color:var(--papel);font-size:.93rem;line-height:1.55;}
+.card-inner:focus-visible{outline:3px solid var(--vermelho);outline-offset:3px;}
+
+/* ---------- SCORECARD ---------- */
+.scorecard{
+  border:3px solid var(--tinta);background:var(--branco-cinza);
+  padding:1.4rem;margin-top:2.4rem;
+}
+.scorecard h3{font-size:1.1rem;margin-bottom:.8rem;letter-spacing:.06em;}
+.score-row{display:flex;justify-content:space-between;font-family:'Oswald',sans-serif;font-size:1rem;padding:.3rem 0;border-bottom:1px dashed var(--cinza-fumo);}
+.score-row strong{color:var(--vermelho);}
+
+/* ---------- VEREDICTO / CINZAS BRANCAS ---------- */
+#veredicto{text-align:center;position:relative;}
+.queimar{
+  font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.2em;
+  background:var(--vermelho);color:var(--branco-cinza);border:none;
+  padding:1.1rem 2.6rem;font-size:1.05rem;cursor:pointer;margin-top:2rem;
+  transition:transform .15s ease;
+}
+.queimar:hover{transform:scale(1.04);}
+.queimar:focus-visible{outline:3px solid var(--tinta);outline-offset:3px;}
+.cinzas-overlay{
+  position:fixed;inset:0;background:var(--branco-cinza);
+  z-index:200;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  opacity:0;pointer-events:none;transition:opacity 2.2s ease;padding:2rem;
+}
+.cinzas-overlay.ativo{opacity:1;pointer-events:auto;}
+.cinzas-overlay h2{font-size:clamp(2rem,7vw,4.5rem);color:var(--cinza-fumo);margin-bottom:1.2rem;}
+.cinzas-overlay p{max-width:30rem;color:var(--tinta);font-size:1.1rem;}
+.cinzas-overlay .fechar{
+  margin-top:2.4rem;background:none;border:2px solid var(--tinta);color:var(--tinta);
+  font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.15em;
+  padding:.7rem 1.8rem;cursor:pointer;
+}
+.cinzas-overlay .fechar:focus-visible{outline:3px solid var(--vermelho);outline-offset:3px;}
+
+footer{border-top:6px double var(--tinta);padding:2.4rem 1.2rem;text-align:center;font-size:.85rem;color:var(--cinza-fumo);}
+
+@media(max-width:560px){
+  nav.rounds{flex-wrap:wrap;}
+  nav.rounds button{padding:.7rem .7rem;font-size:.72rem;}
+  .carimbo{top:6%;right:3%;}
+}
+</style>
+</head>
+<body>
+
+<!-- =============== CARTAZ =============== -->
+<header>
+  <div class="fight-night eyebrow">Luta principal · Três rounds · Sem empates</div>
+  <h1>
+    Joe Yabuki
+    <span class="vs-line">contra Guts · contra Naruto</span>
+    O melhor protagonista de sempre
+  </h1>
+  <div class="carimbo" aria-hidden="true">Veredicto final</div>
+  <p class="sub-cartaz">Um órfão da periferia de Tóquio, sem poderes, sem profecia, sem segunda temporada — e ainda assim ninguém saiu de um ringue como ele saiu. Esta é a defesa.</p>
+  <button class="cta-sino" onclick="document.getElementById('round1').scrollIntoView()">🔔 Tocar o sino — Round 1</button>
+</header>
+
+<!-- =============== NAVEGAÇÃO =============== -->
+<nav class="rounds" aria-label="Rounds da apresentação">
+  <button data-alvo="round1" class="ativo">Round 1 · Joe</button>
+  <button data-alvo="round2">Round 2 · vs Guts</button>
+  <button data-alvo="round3">Round 3 · vs Naruto</button>
+  <button data-alvo="veredicto">Decisão</button>
+</nav>
+
+<!-- =============== ROUND 1 =============== -->
+<section id="round1">
+  <div class="round-header"><span class="num">R1</span><h2>Quem é Joe Yabuki</h2></div>
+  <p class="lead"><em>Ashita no Joe</em> (1968–1973), de Asao Takamori e Tetsuya Chiba, conta a história de Joe Yabuki: um delinquente órfão que vagueia pelo Doya-gai, o bairro mais pobre de Tóquio do pós-guerra, que descobre o boxe na prisão — não como redenção limpa, mas como a única linguagem em que consegue existir.</p>
+  <p>O que faz de Joe um protagonista singular não é o que ele ganha — é o que ele <em>paga</em>. A morte de Rikiishi Tōru, o seu maior rival, no ringue, pelas mãos dele, não é um arco de um episódio: o assombra até a última página. Joe perde a capacidade de dar golpes na cabeça, perde lutas, perde pessoas, e o corpo dele vai se desfazendo em tempo real, golpe a golpe.</p>
+  <p>Toque nos cartões para ver os três pilares do argumento.</p>
+
+  <div class="cards">
+    <div class="card"><div class="card-inner" tabindex="0" role="button" aria-pressed="false">
+      <div class="card-face frente"><h3>Consequências reais</h3><p>Nada se apaga. Nada se perdoa.</p><span class="dica">Virar cartão →</span></div>
+      <div class="card-face verso"><p>A morte de Rikiishi muda Joe permanentemente — gatilho psicológico, bloqueio físico, culpa que nunca é "resolvida" por um discurso. As lesões acumulam-se de forma realista (síndrome do pugilista). O corpo do protagonista é um relógio de contagem decrescente.</p></div>
+    </div></div>
+    <div class="card"><div class="card-inner" tabindex="0" role="button" aria-pressed="false">
+      <div class="card-face frente"><h3>Zero poderes</h3><p>Só punhos, fome e teimosia.</p><span class="dica">Virar cartão →</span></div>
+      <div class="card-face verso"><p>Joe não tem chakra, não tem espada amaldiçoada, não tem destino. Cada vitória custa-lhe semanas de treino, peso cortado passando fome, dentes partidos. O drama é 100% humano — e por isso 100% transferível para a vida de quem lê.</p></div>
+    </div></div>
+    <div class="card"><div class="card-inner" tabindex="0" role="button" aria-pressed="false">
+      <div class="card-face frente"><h3>Impacto histórico</h3><p>Um país parou por ele.</p><span class="dica">Virar cartão →</span></div>
+      <div class="card-face verso"><p>Em 1970, fãs organizaram um funeral real — com monge budista e ringue — para Rikiishi, uma personagem de ficção. No mesmo ano, sequestradores de um avião declararam identificar-se com Joe. Nenhum protagonista de manga atravessou assim a fronteira entre página e país.</p></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- =============== ROUND 2 =============== -->
+<section id="round2">
+  <div class="round-header"><span class="num">R2</span><h2>Joe vs Guts</h2></div>
+  <p class="lead">Guts, de <em>Berserk</em>, é provavelmente o rival mais digno: trauma profundo, luta contra o destino, crescimento lento e doloroso. Mas há três pontos onde Joe vence a decisão.</p>
+  <p><strong>1 — O fim.</strong> A tragédia de Joe está <em>completa</em>. Ashita no Joe tem um dos finais mais célebres da história do manga: fechado, definitivo, impossível de diluir. Berserk, com a morte de Kentaro Miura, ficou estruturalmente inacabado — o arco de Guts nunca poderá ser julgado como um todo.</p>
+  <p><strong>2 — A escala humana.</strong> A dor de Guts precisa de demónios, eclipses e um deus maligno para existir. A dor de Joe precisa apenas de pobreza, culpa e uma balança de pesagem. Quanto menor a máquina narrativa necessária, maior o mérito do protagonista.</p>
+  <p><strong>3 — A escolha final.</strong> Guts sobrevive <em>contra</em> o mundo. Joe escolhe arder <em>dentro</em> das regras do mundo — sobe ao ringue contra José Mendoza sabendo o preço, porque viver a menos de 100% seria a única derrota verdadeira. É agência pura, não sobrevivência.</p>
+
+  <table class="tape" aria-label="Comparação Joe vs Guts">
+    <thead><tr><th>Critério</th><th>Joe Yabuki</th><th>Guts</th></tr></thead>
+    <tbody>
+      <tr><td>Arco fechado</td><td class="joe">Sim — final lendário</td><td>Inacabado</td></tr>
+      <tr><td>Dependência de fantasia</td><td class="joe">Nenhuma</td><td>Total (demónios, marca)</td></tr>
+      <tr><td>Consequências físicas realistas</td><td class="joe">Devastadoras e cumulativas</td><td>Graves mas "elásticas"</td></tr>
+      <tr><td>Motivação</td><td class="joe">Arder por escolha própria</td><td>Vingança → proteção</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- =============== ROUND 3 =============== -->
+<section id="round3">
+  <div class="round-header"><span class="num">R3</span><h2>Joe vs Naruto</h2></div>
+  <p class="lead">Naruto Uzumaki é o protagonista mais influente da sua geração — mas influência não é qualidade de construção. No ringue da escrita de personagem, este round é o mais desequilibrado dos três.</p>
+  <p><strong>1 — Plot armor vs mortalidade.</strong> Naruto nunca pode perder de forma permanente: há sempre um power-up, a Kurama, o sábio dos seis caminhos. Joe perde — contra Carlos Rivera fica em pé só por orgulho, contra o próprio corpo perde todos os dias. Um protagonista que pode falhar a sério vale mais do que um que está contratualmente protegido.</p>
+  <p><strong>2 — Conflito resolvido a soco vs a sermão.</strong> O famoso "talk no jutsu" converte vilões com discursos. Joe nunca converte ninguém: Rikiishi morre, Carlos fica destruído, Mendoza fica grisalho em uma única luta. O mundo de Joe não se dobra à moral do herói — é o herói que se gasta contra o mundo.</p>
+  <p><strong>3 — O tema.</strong> Naruto promete que o esforço e a amizade vencem tudo — e o próprio manga trai o tema (genética, linhagens, reencarnações). Ashita no Joe promete que viver com intensidade total tem um preço — e cumpre a promessa até a última imagem. Coerência temática absoluta contra coerência negociada.</p>
+
+  <table class="tape" aria-label="Comparação Joe vs Naruto">
+    <thead><tr><th>Critério</th><th>Joe Yabuki</th><th>Naruto</th></tr></thead>
+    <tbody>
+      <tr><td>Pode falhar permanentemente</td><td class="joe">Sim — e falha</td><td>Não</td></tr>
+      <tr><td>Coerência do tema</td><td class="joe">Total, até ao fim</td><td>Traída pela linhagem</td></tr>
+      <tr><td>Resolução de conflitos</td><td class="joe">Com custo real</td><td>Discurso + power-up</td></tr>
+      <tr><td>Final</td><td class="joe">Icónico e definitivo</td><td>Epílogo comercial</td></tr>
+    </tbody>
+  </table>
+
+  <div class="scorecard">
+    <h3>📋 Cartão dos juízes (atualiza ao virar os cartões do Round 1)</h3>
+    <div class="score-row"><span>Round 1 — Construção da personagem</span><strong id="s1">—</strong></div>
+    <div class="score-row"><span>Round 2 — Joe vs Guts</span><strong>Joe, por decisão (final completo)</strong></div>
+    <div class="score-row"><span>Round 3 — Joe vs Naruto</span><strong>Joe, por KO técnico</strong></div>
+  </div>
+</section>
+
+<!-- =============== VEREDICTO =============== -->
+<section id="veredicto">
+  <div class="round-header"><span class="num">⚖</span><h2>Decisão unânime</h2></div>
+  <p class="lead">Guts é o sobrevivente perfeito. Naruto é o símbolo perfeito. Mas Joe Yabuki é a <em>personagem</em> perfeita: humana, falível, coerente do primeiro ao último quadro, com um fim que transformou uma frase — arder até restarem só cinzas brancas — em filosofia de vida para gerações inteiras.</p>
+  <p>Ele não venceu o mundo. Ele se gastou inteiro contra ele. E é exatamente por isso que está acima de todos.</p>
+  <button class="queimar" id="btnQueimar">Arder até ao fim 🔥</button>
+</section>
+
+<div class="cinzas-overlay" id="cinzas" role="dialog" aria-modal="true" aria-label="Final">
+  <h2>Cinzas brancas.</h2>
+  <p>Joe não terminou a história invicto, imortal ou recompensado. Ele a terminou <em>completo</em> — sorrindo, vazio, sem nada por dar. Nenhum outro protagonista chegou tão longe.</p>
+  <button class="fechar" id="btnFechar">Voltar ao cartaz</button>
+</div>
+
+<footer>
+  Apresentação interativa · Ashita no Joe (1968–1973), Takamori &amp; Chiba · Argumento construído para debate — discorde à vontade, mas traga luvas.
+</footer>
+
+<script>
+// Navegação por rounds + destaque ativo
+const botoesNav = document.querySelectorAll('nav.rounds button');
+botoesNav.forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.getElementById(b.dataset.alvo).scrollIntoView();
+  });
+});
+const seccoes = ['round1','round2','round3','veredicto'].map(id=>document.getElementById(id));
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      botoesNav.forEach(b=>b.classList.toggle('ativo', b.dataset.alvo===e.target.id));
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+seccoes.forEach(s=>obs.observe(s));
+
+// Cartões flip + scorecard
+const cartoes = document.querySelectorAll('.card');
+let virados = 0;
+function virar(card){
+  const jaVirado = card.classList.toggle('virado');
+  const inner = card.querySelector('.card-inner');
+  inner.setAttribute('aria-pressed', jaVirado ? 'true' : 'false');
+  virados = document.querySelectorAll('.card.virado').length;
+  const s1 = document.getElementById('s1');
+  if(virados===0) s1.textContent='—';
+  else if(virados<3) s1.textContent='Joe lidera ('+virados+'/3 argumentos vistos)';
+  else s1.textContent='Joe, 10–8 (argumentos completos)';
+}
+cartoes.forEach(card=>{
+  const inner = card.querySelector('.card-inner');
+  inner.addEventListener('click',()=>virar(card));
+  inner.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();virar(card);}
+  });
+});
+
+// Final — cinzas brancas
+const overlay = document.getElementById('cinzas');
+document.getElementById('btnQueimar').addEventListener('click',()=>{
+  overlay.classList.add('ativo');
+  document.getElementById('btnFechar').focus();
+});
+document.getElementById('btnFechar').addEventListener('click',()=>{
+  overlay.classList.remove('ativo');
+  window.scrollTo({top:0});
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') overlay.classList.remove('ativo');
+});
+</script>
+</body>
+</html>
